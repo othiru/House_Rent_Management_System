@@ -1,0 +1,29 @@
+import java.sql.*;
+import javax.swing.*;
+import net.proteanit.sql.DbUtils;
+public class query extends javax.swing.JFrame {
+
+    /**
+     * Creates new form query
+     */
+    Connection conn = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
+    
+    public query() {
+        initComponents();
+        conn = javaconnect.ConnecrDb();
+        show_table();
+    }
+    private void show_table(){
+        try{
+            String sql = "select * from Renter";
+            pst = conn.PrepareStatement(sql);
+            rs = pst.executeQuery();
+            queryTable.setModel(DbUtils.resultSetToTableModel(rs));
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+        }
+    }
